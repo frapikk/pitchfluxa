@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="it">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tecnologia — Fluxa</title>
+    <style>
+        :root{
+            /* Palette from provided reference (Activity board look) */
+            --bg:#ffffff;
+            --ink:#111111;
+            --board:#d9d6cf;
+            --card:#f3f3f1;
+            --muted:#5b5b5b;
+            --line:#c9c6be;
+            --accent:#111111;
+        }
+        html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";}
+        .slide{max-width:1366px;min-height:768px;margin:0 auto;padding:48px 56px 60px;box-sizing:border-box;}
+        h1{font-size:64px;line-height:1.05;margin:0 0 12px -2px;letter-spacing:-.5px;}
+        .sub{font-size:20px;color:var(--ink);margin:0 0 24px;max-width:1000px;}
+        .grid{display:grid;grid-template-columns:1.15fr 1fr;gap:22px;}
+        @media (max-width: 1100px){.grid{grid-template-columns:1fr;}}
+        /* Left column panels */
+        .panel{background:var(--board);border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px;}
+        .panel h2{font-size:24px;margin:0 0 10px;font-weight:800;}
+        .panel h3{font-size:18px;margin:12px 0 6px;font-weight:800;}
+        .panel p,.panel li{font-size:16px;color:#222;line-height:1.45;}
+        .panel ul{margin:0;padding-left:20px;}
+        .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+        .chip{background:var(--ink);color:#fff;border-radius:999px;padding:7px 12px;font-size:13px;font-weight:700;letter-spacing:.2px}
+        /* Right column diagram board */
+        .board{background:var(--board);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px;}
+        .board h2{font-size:20px;margin:2px 2px 8px 2px;font-weight:800;}
+        .svg-wrap{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px}
+        svg{width:100%;height:auto;display:block}
+        /* Small foot */
+        .foot{color:var(--muted);font-size:12px;margin-top:8px}
+        /* Clean list bullets */
+        li+li{margin-top:6px}
+    </style>
+</head>
+<body>
+<section class="slide">
+    <h1>Tecnologia</h1>
+    <p class="sub"><strong>Dal kWh misurato al token scambiabile, fino al settlement in bolletta.</strong> Architettura a 3 layer: <em>Data &amp; Proof</em> → <em>Market &amp; Pricing</em> → <em>Flex &amp; Delivery</em>.</p>
+
+    <div class="grid">
+        <!-- LEFT: content summary (trimmed) -->
+        <div class="panel">
+            <h2>Architettura a 3 layer</h2>
+
+            <h3>Data &amp; Proof</h3>
+            <ul>
+                <li><strong>Acquisizione misure POD</strong> (smart meter 2G / DSO / SII / GSE) con firma &amp; hash.</li>
+                <li><strong>Energy oracle</strong>: coerenza zone/fasce, anti‑double counting, finestra di <em>reconciliation</em> t+2.</li>
+                <li><strong>Tokenizzazione</strong>: token fungibili (ERC‑20 esteso) con attributi energetici e scadenza.</li>
+            </ul>
+
+            <h3>Market &amp; Pricing</h3>
+            <ul>
+                <li><strong>Order book / AMM</strong> con bande su PUN/PPA; market maker per liquidità.</li>
+                <li><strong>Clearing &amp; escrow</strong> per ordini aperti; <em>burn</em> su redemption/consumo.</li>
+                <li><strong>Trasparenza</strong>: prezzi e volumi on‑chain.</li>
+            </ul>
+
+            <h3>Flex &amp; Delivery</h3>
+            <ul>
+                <li><strong>API Fornitore (EVE)</strong> per redemption e sconto in bolletta.</li>
+                <li><strong>Controllo risorse</strong>: EMS/BESS (Modbus, OPC‑UA, IEC 61850), CPO (OCPP), ISO 15118, OpenADR.</li>
+                <li><strong>UVAM‑ready</strong> via interfaccia BSP/Terna.</li>
+            </ul>
+
+            <div class="chips">
+                <span class="chip">≤ 15 min latenza</span>
+                <span class="chip">Dispute: t+2</span>
+                <span class="chip">Uptime 99,9%</span>
+            </div>
+        </div>
+
+        <!-- RIGHT: static architecture diagram -->
+        <div class="board">
+            <h2>Schema tecnico sintetico</h2>
+            <div class="svg-wrap">
+                <!-- Static SVG (no animations) -->
+                <svg viewBox="0 0 880 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architettura tecnica Fluxa">
+                    <defs>
+                        <style>
+                            .b{fill:#f3f3f1;stroke:#c9c6be;stroke-width:2}
+                            .t{font:700 14px ui-sans-serif,system-ui,Segoe UI,Roboto,Arial;fill:#111}
+                            .s{font:600 12px ui-sans-serif,system-ui,Segoe UI,Roboto,Arial;fill:#333}
+                            .a{marker-end:url(#arrow)}
+                        </style>
+                        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#777"/>
+                        </marker>
+                    </defs>
+
+                    <!-- Row 1: Data & Proof -->
+                    <rect class="b" x="20"  y="20" width="170" height="90" rx="10"/><text class="t" x="35" y="45">Smart meter / DSO</text><text class="s" x="35" y="65">POD • curve orarie</text><text class="s" x="35" y="83">firma + hash</text>
+                    <rect class="b" x="220" y="20" width="180" height="90" rx="10"/><text class="t" x="235" y="45">Energy Oracle</text><text class="s" x="235" y="65">coerenza zone/fasce</text><text class="s" x="235" y="83">anti‑double counting</text>
+                    <rect class="b" x="430" y="20" width="170" height="90" rx="10"/><text class="t" x="445" y="45">Tokenizzazione</text><text class="s" x="445" y="65">ERC‑20 esteso</text><text class="s" x="445" y="83">attributi energetici</text>
+
+                    <!-- Row 2: Market & Pricing -->
+                    <rect class="b" x="20"  y="150" width="220" height="90" rx="10"/><text class="t" x="35" y="175">Order book / AMM</text><text class="s" x="35" y="195">bande PUN/PPA • MM</text>
+                    <rect class="b" x="270" y="150" width="200" height="90" rx="10"/><text class="t" x="285" y="175">Clearing &amp; Escrow</text><text class="s" x="285" y="195">settlement trade</text>
+
+                    <!-- Row 3: Delivery -->
+                    <rect class="b" x="20"  y="280" width="220" height="90" rx="10"/><text class="t" x="35" y="305">API Fornitore (EVE)</text><text class="s" x="35" y="325">redeem token → sconto</text>
+                    <rect class="b" x="270" y="280" width="200" height="90" rx="10"/><text class="t" x="285" y="305">Fornitore Energia</text><text class="s" x="285" y="325">bolletta/contatore</text>
+                    <rect class="b" x="500" y="280" width="180" height="90" rx="10"/><text class="t" x="515" y="305">Consumatore PMI/CPO</text><text class="s" x="515" y="325">wallet + contratto</text>
+
+                    <!-- Flex -->
+                    <rect class="b" x="500" y="150" width="180" height="90" rx="10"/><text class="t" x="515" y="175">Flessibilità</text><text class="s" x="515" y="195">EMS/BESS • OCPP • 15118</text>
+
+                    <!-- Prosumer -->
+                    <rect class="b" x="700" y="20"  width="160" height="90" rx="10"/><text class="t" x="715" y="45">Prosumer</text><text class="s" x="715" y="65">wallet + POD</text>
+                    <rect class="b" x="700" y="150" width="160" height="90" rx="10"/><text class="t" x="715" y="175">Mint/Burn</text><text class="s" x="715" y="195">on redemption</text>
+
+                    <!-- Flows -->
+                    <line x1="190" y1="65"  x2="220" y2="65"  stroke="#777" stroke-width="2" class="a"/>
+                    <line x1="400" y1="65"  x2="430" y2="65"  stroke="#777" stroke-width="2" class="a"/>
+                    <line x1="600" y1="65"  x2="700" y2="65"  stroke="#777" stroke-width="2" class="a"/>
+                    <line x1="785" y1="110" x2="785" y2="150" stroke="#777" stroke-width="2" class="a"/>
+                    <line x1="240" y1="195" x2="270" y2="195" stroke="#777" stroke-width="2" class="a"/>
+                    <line x1="370" y1="240" x2="370" y2="280" stroke="#777" stroke-width="2" class="a"/>
+                    <line x1="220" y1="325" x2="270" y2="325" stroke="#777" stroke-width="2" class="a"/>
+                    <line x1="470" y1="325" x2="500" y2="325" stroke="#777" stroke-width="2" class="a"/>
+                    <line x1="590" y1="240" x2="592" y2="280" stroke="#777" stroke-width="2" class="a"/>
+
+                    <!-- Legend footer -->
+                    <text class="s" x="20" y="395">Standard: Modbus, OPC‑UA, IEC 61850, OCPP, ISO 15118, OpenADR • UVAM‑ready</text>
+                </svg>
+            </div>
+            <div class="foot">Schema statico — nessuna animazione o contenuto mobile. Ridotto ai blocchi principali per massima leggibilità.</div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

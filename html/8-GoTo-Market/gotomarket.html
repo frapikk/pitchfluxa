@@ -1,0 +1,96 @@
+Ecco di nuovo il file pronto:
+
+📄 [slide\_gtm\_fluxa.html](sandbox:/mnt/data/slide_gtm_fluxa.html)
+
+Se il download dovesse fallire ancora, puoi copiare-incollare questo contenuto in un file chiamato `slide_gtm_fluxa.html` sul tuo pc e aprirlo nel browser:
+
+```html
+<!doctype html>
+<html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fluxa — Go-to-Market Strategy</title>
+<style>
+:root{--bg:#0b0f19;--panel:#111827;--text:#e5e7eb;--muted:#9ca3af;--grid:rgba(255,255,255,.08);--accent:#60a5fa}
+html,body{margin:0;padding:0;background:radial-gradient(1200px 800px at 20% 0%, #0f172a 0%, var(--bg) 60%);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:1280px;margin:0 auto;padding:40px 26px 56px}
+.badge{display:inline-block;padding:6px 10px;border-radius:999px;border:1px solid var(--grid);color:var(--muted);font-size:14px}
+h1{margin:10px 0;font-size:clamp(28px,4vw,42px);line-height:1.1}
+.subtitle{color:var(--muted);margin:6px 0 14px}
+.grid{display:grid;grid-template-columns:1.1fr 1fr;gap:18px}
+@media(max-width:1100px){.grid{grid-template-columns:1fr}}
+.panel{background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));border:1px solid var(--grid);border-radius:16px;padding:16px}
+.title{font-weight:700;margin-bottom:8px}
+.bullets ul{margin:0;padding-left:18px}.bullets li{margin:6px 0}
+.kpis table{width:100%;border-collapse:collapse;font-size:14px}
+.kpis th,.kpis td{border:1px solid var(--grid);padding:10px;vertical-align:top}
+.kpis th{background:rgba(255,255,255,.05);text-align:left}
+.footnote{color:var(--muted);font-size:12px;margin-top:8px}
+.timeline{position:relative;height:420px}svg{width:100%;height:100%}
+.legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+.tag{font-size:12px;color:var(--muted);border:1px solid var(--grid);padding:4px 8px;border-radius:999px}
+</style></head>
+<body><div class="wrap">
+<span class="badge">Fluxa — Go-to-Market</span>
+<h1>Strategia GTM: partner-first su PMI/CPO, liquidità con accumulatori, adozione prosumer</h1>
+<p class="subtitle">Obiettivo: rendere scambiabili i kWh via token e consegnarli in bolletta alle PMI/CPO. Canale principale: partnership B2B (utility/ESCo/CPO).</p>
+<div class="grid">
+  <div class="panel">
+    <div class="title">Early Adopter (segmentati)</div>
+    <div class="bullets"><ul>
+      <li><b>PMI energivore (priorità):</b> manifattura, logistica, food. Hedging e riduzione peak-power.</li>
+      <li><b>CPO (Charging Point Operators):</b> margini in peak; integrazioni OCPP/OCPI.</li>
+      <li><b>Prosumer & piccole centrali FV:</b> surplus ceduto a PMG → valorizzazione/liquidità.</li>
+      <li><b>Accumulatori (BESS):</b> monetizzazione UVAM e arbitraggio; ruolo di market-maker energetico.</li>
+    </ul></div>
+    <div class="kpis" style="margin-top:14px">
+      <div class="title">KPI commerciali (CAC / ARPU) — stime iniziali</div>
+      <table>
+        <thead><tr><th>Segmento</th><th>Canale</th><th>CAC stimato</th><th>ARPU annuo</th><th>Note</th></tr></thead>
+        <tbody>
+          <tr><td><b>PMI</b></td><td>Partner utility / ESCo / associazioni</td><td>300–800 €</td><td>800–2.000 €</td><td>Fee + servizi flessibilità/peak-shaving</td></tr>
+          <tr><td><b>CPO</b></td><td>Accordi quadro con operatori/consorzi</td><td>400–1.000 €</td><td>1.000–3.000 €</td><td>Ottimizzazione energia + API</td></tr>
+          <tr><td><b>Prosumer</b></td><td>Digitale + installatori FV + CER</td><td>50–150 €</td><td>50–120 €</td><td>Spread/fee su kWh & redemption</td></tr>
+          <tr><td><b>Accumulatori</b></td><td>Accordi con EPC/aggregatori</td><td>300–700 €</td><td>1.000–4.000 €</td><td>Performance & capacity fee; LP di liquidità</td></tr>
+        </tbody>
+      </table>
+      <div class="footnote">North Star Metric: <b>kWh tokenizzati</b> & <b>% redemption</b>. KPI: churn PMI trimestrale, profondità book, giorni di cassa.</div>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="title">Roadmap GTM (3 fasi) — volumetrie & partnership</div>
+    <div class="timeline">
+      <svg viewBox="0 0 620 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Timeline GTM">
+        <defs><style>
+          .bx{fill:rgba(255,255,255,.06);stroke:#94a3b8;stroke-width:1;rx:14}
+          .hd{fill:#e5e7eb;font:600 14px system-ui,Segoe UI,Roboto}
+          .tx{fill:#9ca3af;font:400 12px system-ui,Segoe UI,Roboto}
+          .ln{stroke:#60a5fa;stroke-width:2}.dot{fill:#60a5fa}
+        </style></defs>
+        <line x1="40" y1="360" x2="580" y2="360" class="ln"/>
+        <circle cx="140" cy="360" r="5" class="dot"/><circle cx="320" cy="360" r="5" class="dot"/><circle cx="500" cy="360" r="5" class="dot"/>
+        <text x="120" y="380" class="tx">2025–2026</text><text x="300" y="380" class="tx">2027–2028</text><text x="490" y="380" class="tx">2029+</text>
+        <rect x="60" y="40" width="200" height="120" class="bx"/>
+        <text x="70" y="60" class="hd">Fase 1: Pilot & PoV</text>
+        <text x="70" y="80" class="tx">• 50 PMI + 1 CPO + 500 prosumer</text>
+        <text x="70" y="96" class="tx">• ≥ 50 GWh tokenizzati/anno</text>
+        <text x="70" y="112" class="tx">• 1 utility regionale + 1 ESCo</text>
+        <text x="70" y="128" class="tx">• API redemption in bolletta</text>
+        <rect x="240" y="120" width="200" height="120" class="bx"/>
+        <text x="250" y="140" class="hd">Fase 2: Scale Italia</text>
+        <text x="250" y="160" class="tx">• 2.000 PMI, 5 CPO</text>
+        <text x="250" y="176" class="tx">• 100 MWh BESS connessi</text>
+        <text x="250" y="192" class="tx">• 500 GWh tokenizzati/anno</text>
+        <text x="250" y="208" class="tx">• Programmi co-marketing</text>
+        <rect x="420" y="200" width="200" height="120" class="bx"/>
+        <text x="430" y="220" class="hd">Fase 3: EU Expansion</text>
+        <text x="430" y="240" class="tx">• Spagna/Portogallo/Grecia</text>
+        <text x="430" y="256" class="tx">• 2–3 TWh tokenizzati/anno</text>
+        <text x="430" y="272" class="tx">• 3–5 utility partner locali</text>
+        <text x="430" y="288" class="tx">• Market maker istituzionali</text>
+        <line x1="260" y1="100" x2="260" y2="120" class="ln"/><line x1="440" y1="180" x2="440" y2="200" class="ln"/>
+      </svg>
+    </div>
+    <div class="legend"><span class="tag">Canale: Partnership B2B</span><span class="tag">Supporto: Digital prosumer</span><span class="tag">Liquidità: Accumulatori</span></div>
+  </div>
+</div>
+</div></body></html>
+```

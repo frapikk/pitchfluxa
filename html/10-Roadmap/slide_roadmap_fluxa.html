@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fluxa — Roadmap 2025–2030</title>
+  <style>
+    :root{
+      --bg:#0b0f19; --panel:#111827; --text:#e5e7eb; --muted:#9ca3af;
+      --grid:rgba(255,255,255,.08); --accent:#60a5fa; --ok:#34d399; --warn:#f59e0b;
+    }
+    html,body{margin:0;padding:0;background:radial-gradient(1200px 800px at 20% 0%, #0f172a 0%, var(--bg) 60%);color:var(--text);
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+    .wrap{max-width:1280px;margin:0 auto;padding:40px 26px 56px}
+    .badge{display:inline-block;padding:6px 10px;border-radius:999px;border:1px solid var(--grid);color:var(--muted);font-size:14px}
+    h1{margin:10px 0;font-size:clamp(28px,4vw,42px);line-height:1.1}
+    .subtitle{color:var(--muted);margin:6px 0 14px}
+    .grid{display:grid;grid-template-columns:1fr;gap:18px}
+    .panel{background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));border:1px solid var(--grid);
+      border-radius:16px;padding:16px}
+    .title{font-weight:700;margin-bottom:8px}
+    .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px}
+    .card{background:rgba(255,255,255,.03);border:1px solid var(--grid);border-radius:12px;padding:10px 12px}
+    .muted{color:var(--muted)}
+    .legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+    .tag{font-size:12px;color:var(--muted);border:1px solid var(--grid);padding:4px 8px;border-radius:999px}
+    /* Responsive */
+    @media(max-width:1100px){
+      .kpis{grid-template-columns:1fr 1fr}
+    }
+    svg{width:100%;height:100%}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <span class="badge">Fluxa — Roadmap</span>
+    <h1>Roadmap strategica 2025–2030</h1>
+    <p class="subtitle">Fasi, milestone e KPI per scalare da pilot nazionale a piattaforma europea di tokenizzazione energetica.</p>
+
+    <div class="panel">
+      <div class="title">Timeline a 3 fasi</div>
+      <div class="timeline" style="height:460px">
+        <svg viewBox="0 0 1180 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Timeline Fluxa">
+          <defs>
+            <style>
+              .ln{stroke:#60a5fa;stroke-width:2}
+              .dot{fill:#60a5fa}
+              .bx{fill:rgba(255,255,255,.06);stroke:#94a3b8;stroke-width:1;rx:14}
+              .hd{fill:#e5e7eb;font:600 16px system-ui,Segoe UI,Roboto}
+              .tx{fill:#9ca3af;font:400 13px system-ui,Segoe UI,Roboto}
+              .kp{fill:#34d399;font:600 13px system-ui,Segoe UI,Roboto}
+            </style>
+          </defs>
+          <!-- Axis -->
+          <line x1="80" y1="400" x2="1100" y2="400" class="ln"/>
+          <circle cx="260" cy="400" r="5" class="dot"/>
+          <circle cx="640" cy="400" r="5" class="dot"/>
+          <circle cx="1020" cy="400" r="5" class="dot"/>
+          <text x="230" y="430" class="tx">2025–2026</text>
+          <text x="610" y="430" class="tx">2027–2028</text>
+          <text x="1000" y="430" class="tx">2029–2030</text>
+
+          <!-- Phase 1 -->
+          <rect x="120" y="60" width="300" height="240" class="bx"/>
+          <text x="140" y="86" class="hd">Fase 1 — Pilot & Proof of Value</text>
+          <text x="140" y="112" class="tx">• MVP: token kWh + redemption in bolletta</text>
+          <text x="140" y="134" class="tx">• Integrazione: 1 utility regionale, 1 CPO</text>
+          <text x="140" y="156" class="tx">• Cluster: 50 PMI, 500 prosumer</text>
+          <text x="140" y="178" class="tx">• Compliance: ARERA/GSE, audit MiCA</text>
+          <text x="140" y="200" class="tx">• API: OCPP/OCPI, SII/DSO (misure 2G)</text>
+          <text x="140" y="222" class="kp">KPI: ≥ 50 GWh/anno tokenizzati • ≥ 90% settlement</text>
+          <text x="140" y="244" class="kp">KPI: 2 partner attivi • NPS ≥ 45</text>
+
+          <!-- Phase 2 -->
+          <rect x="500" y="110" width="300" height="240" class="bx"/>
+          <text x="520" y="136" class="hd">Fase 2 — Scalabilità Italia</text>
+          <text x="520" y="162" class="tx">• 3 utility integrate • 5 CPO nazionali</text>
+          <text x="520" y="184" class="tx">• 2.000 PMI • 20.000 prosumer</text>
+          <text x="520" y="206" class="tx">• BESS: ≥ 100 MWh connessi (LP liquidità)</text>
+          <text x="520" y="228" class="tx">• Marketplace secondario (order book/AMM)</text>
+          <text x="520" y="250" class="kp">KPI: 500 GWh/anno tokenizzati • churn PMI &lt; 5%/q</text>
+          <text x="520" y="272" class="kp">KPI: depth book ≥ 7 giorni • EBITDA &gt; 10%</text>
+
+          <!-- Phase 3 -->
+          <rect x="880" y="160" width="300" height="240" class="bx"/>
+          <text x="900" y="186" class="hd">Fase 3 — EU Expansion</text>
+          <text x="900" y="212" class="tx">• Paesi target: ES, PT, GR</text>
+          <text x="900" y="234" class="tx">• 3–5 utility locali partner</text>
+          <text x="900" y="256" class="tx">• Smart contract multi‑country (RED III)</text>
+          <text x="900" y="278" class="tx">• Market maker istituzionali</text>
+          <text x="900" y="300" class="kp">KPI: 2–3 TWh/anno tokenizzati • EBITDA &gt; 25%</text>
+        </svg>
+      </div>
+      <div class="legend">
+        <span class="tag">North Star: kWh tokenizzati & % redemption</span>
+        <span class="tag">Canale primario: partnership B2B (utility/ESCo/CPO)</span>
+        <span class="tag">Liquidità: accumulatori (BESS) come LP</span>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="title">Milestone tecniche & commerciali (per fase)</div>
+      <div class="kpis">
+        <div class="card">
+          <div class="title">Fase 1 — Tech</div>
+          <div class="muted">MVP token & settlement • API redemption • Telemetria SII 2G • Audit sicurezza • Onboarding partner</div>
+        </div>
+        <div class="card">
+          <div class="title">Fase 1 — Biz</div>
+          <div class="muted">Contratti con 1 utility + 1 CPO • 50 PMI • 500 prosumer • Programma referral installatori</div>
+        </div>
+        <div class="card">
+          <div class="title">Fase 2 — Tech</div>
+          <div class="muted">Order book/AMM • Balancing & UVAM • Scalabilità multi‑tenant • SLA ≥ 99,9%</div>
+        </div>
+        <div class="card">
+          <div class="title">Fase 2 — Biz</div>
+          <div class="muted">3 utility • 5 CPO • 2.000 PMI • Pricing dinamico • Co‑marketing con associazioni di categoria</div>
+        </div>
+        <div class="card">
+          <div class="title">Fase 3 — Tech</div>
+          <div class="muted">Localizzazione EU • Regole fiscali & compliance • Interconnessione DSO/TSO • Stress‑test scalabilità</div>
+        </div>
+        <div class="card">
+          <div class="title">Fase 3 — Biz</div>
+          <div class="muted">3–5 utility locali • MM istituzionali • Programmi PPA/REC • Partnership banca/assicurazione</div>
+        </div>
+        <div class="card">
+          <div class="title">KPI di controllo</div>
+          <div class="muted">Churn PMI trimestrale &lt;5% • Profondità book ≥7 giorni • Giorni di cassa &lt;35 • % settlement &gt;98%</div>
+        </div>
+        <div class="card">
+          <div class="title">Rischi & mitigazioni</div>
+          <div class="muted">Compliance MiCA/ARERA • Accordi quadro con utility • Risk‑engine per credit/energy • Monitor supply‑chain BESS</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

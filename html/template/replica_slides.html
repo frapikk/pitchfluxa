@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Replicated Slides</title>
+  <style>
+    /* General reset and base styling */
+    body {
+      margin: 0;
+      padding: 0;
+      /* Use system fonts to approximate the clean and slightly condensed look of the original template. */
+      font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+      color: #1e1e1e;
+      background-color: #ffffff;
+    }
+    .slide {
+      width: 1366px;
+      height: 768px;
+      margin: 40px auto;
+      position: relative;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+    /* Removed Try Pitch button styles */
+    .try-pitch {
+      display: none;
+    }
+    h1, h2, h3, h4, h5 {
+      margin: 0;
+      font-weight: 700;
+      /* Slight negative letter-spacing to mimic the tight kerning of the original deck */
+      letter-spacing: -0.5px;
+    }
+    p {
+      margin: 0;
+      font-weight: 400;
+      /* Normal letter-spacing for readability */
+      letter-spacing: 0;
+    }
+    /* Slide 1 – Four awesome points */
+    .slide-1 {
+      background-color: #ffffff;
+    }
+    .slide-1 .header {
+      display: flex;
+      justify-content: space-between;
+      padding: 80px 80px 40px 80px;
+      height: 230px;
+      box-sizing: border-box;
+    }
+    .slide-1 .header-left {
+      flex: 1;
+      font-size: 56px;
+      font-weight: 700;
+      line-height: 1.1;
+      color: #000000;
+    }
+    .slide-1 .header-right {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding-left: 40px;
+      font-size: 24px;
+      line-height: 1.5;
+      color: #7a7a7a;
+    }
+    .slide-1 .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      width: 100%;
+      height: calc(768px - 230px);
+    }
+    .slide-1 .cell {
+      padding: 40px 50px;
+      box-sizing: border-box;
+    }
+    .slide-1 .cell:nth-child(odd) {
+      background-color: #ecf4e9;
+    }
+    .slide-1 .cell:nth-child(even) {
+      background-color: #f7faf3;
+    }
+    .slide-1 .cell h3 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #000000;
+    }
+    .slide-1 .cell p {
+      font-size: 20px;
+      line-height: 1.4;
+      color: #3a3a3a;
+    }
+
+    /* Slide 2 – Product roadmap */
+    .slide-2 {
+      background-color: #ffffff;
+    }
+    .slide-2 .header {
+      display: flex;
+      justify-content: space-between;
+      padding: 80px 80px 20px 80px;
+      height: 200px;
+      box-sizing: border-box;
+    }
+    .slide-2 .header-left {
+      flex: 1;
+      font-size: 56px;
+      font-weight: 700;
+      color: #000000;
+    }
+    .slide-2 .header-right {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding-left: 40px;
+      font-size: 22px;
+      line-height: 1.4;
+      color: #7a7a7a;
+    }
+    .slide-2 .timeline {
+      width: calc(100% - 160px);
+      height: 420px;
+      margin: 0 auto;
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: 70px 1fr;
+      box-sizing: border-box;
+    }
+    .slide-2 .timeline .month {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 10px;
+      font-size: 20px;
+      font-weight: 600;
+      color: #8c8c8c;
+      box-sizing: border-box;
+    }
+    .slide-2 .timeline .month:nth-child(odd) {
+      background-color: #e9f2dc;
+    }
+    .slide-2 .timeline .month:nth-child(even) {
+      background-color: #f5faef;
+    }
+    /* Bars inside timeline */
+    .timeline-bar {
+      position: absolute;
+      bottom: 110px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 600;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+    .timeline-bar.bar1 {
+      left: 0;
+      width: 50%;
+      background-color: #f5c8a7;
+      color: #000;
+    }
+    .timeline-bar.bar2 {
+      right: 0;
+      width: 50%;
+      background-color: #f5c8a7;
+      color: #000;
+    }
+    .timeline-bar.bar3 {
+      bottom: 20px;
+      left: 25%;
+      width: 50%;
+      background-color: #ffffff;
+      border: 2px solid #000000;
+      color: #000000;
+    }
+    /* Event markers */
+    .timeline-event {
+      position: absolute;
+      top: 40px;
+      left: 32%;
+      width: 260px;
+      height: 70px;
+      background-color: #000000;
+      color: #ffffff;
+      border-radius: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 700;
+    }
+    .timeline-blocker {
+      position: absolute;
+      top: 180px;
+      left: 70%;
+      width: 220px;
+      height: 70px;
+      background-color: #000000;
+      color: #ffffff;
+      border-radius: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 700;
+    }
+    .timeline-line {
+      position: absolute;
+      width: 2px;
+      background-color: #000000;
+      top: 110px;
+      left: 49%;
+      height: 150px;
+    }
+
+    /* Slide 3 – Bar chart */
+    .slide-3 {
+      background-color: #ffffff;
+    }
+    .slide-3 .content-row {
+      display: flex;
+      height: 100%;
+      box-sizing: border-box;
+    }
+    .slide-3 .left-col {
+      width: 45%;
+      padding: 100px 60px 40px 80px;
+      box-sizing: border-box;
+    }
+    .slide-3 .left-col h2 {
+      font-size: 54px;
+      font-weight: 700;
+      margin-bottom: 40px;
+      color: #000000;
+    }
+    .slide-3 .left-col p {
+      font-size: 20px;
+      line-height: 1.5;
+      color: #3a3a3a;
+      margin-bottom: 24px;
+    }
+    .slide-3 .right-col {
+      width: 55%;
+      padding: 80px 80px 40px 40px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .bar-chart-container {
+      background-color: #f6d7c8;
+      padding: 20px 20px 10px 40px;
+      height: 420px;
+      position: relative;
+      box-sizing: border-box;
+    }
+    .bar-chart-container svg {
+      width: 100%;
+      height: 350px;
+      overflow: visible;
+    }
+    .bar-chart-caption {
+      text-align: right;
+      font-size: 18px;
+      color: #7a7a7a;
+      margin-top: 8px;
+    }
+
+    /* Slide 4 – Table */
+    .slide-4 {
+      background-color: #ffffff;
+    }
+    .slide-4 .content-row {
+      display: flex;
+      height: 100%;
+      box-sizing: border-box;
+    }
+    .slide-4 .left-col {
+      width: 45%;
+      padding: 100px 60px 40px 80px;
+      box-sizing: border-box;
+    }
+    .slide-4 .left-col h2 {
+      font-size: 54px;
+      font-weight: 700;
+      margin-bottom: 40px;
+      color: #000000;
+    }
+    .slide-4 .left-col p {
+      font-size: 20px;
+      line-height: 1.5;
+      color: #3a3a3a;
+      margin-bottom: 24px;
+    }
+    .slide-4 .right-col {
+      width: 55%;
+      padding: 80px 80px 40px 40px;
+      box-sizing: border-box;
+    }
+    .table-container {
+      background-color: #f6d7c8;
+      padding: 40px;
+      height: 440px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    table.custom {
+      width: 100%;
+      border-collapse: collapse;
+      border: 2px solid #6d6d6d;
+      table-layout: fixed;
+      height: 100%;
+    }
+    table.custom th, table.custom td {
+      border: 2px solid #6d6d6d;
+      text-align: center;
+      font-size: 22px;
+      padding: 8px;
+      box-sizing: border-box;
+    }
+    table.custom th {
+      background-color: #000000;
+      color: #ffffff;
+    }
+    table.custom td {
+      background-color: #fce3d4;
+      color: #3a3a3a;
+    }
+
+    /* Slide 5 – Line chart */
+    .slide-5 {
+      background-color: #ffffff;
+    }
+    .slide-5 .header {
+      display: flex;
+      justify-content: space-between;
+      padding: 80px 80px 20px 80px;
+      height: 200px;
+      box-sizing: border-box;
+    }
+    .slide-5 .header-left {
+      flex: 1;
+      font-size: 56px;
+      font-weight: 700;
+      color: #000000;
+    }
+    .slide-5 .header-right {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding-left: 40px;
+      font-size: 22px;
+      line-height: 1.4;
+      color: #7a7a7a;
+    }
+    .line-chart-container {
+      background-color: #f6d7c8;
+      width: calc(100% - 160px);
+      height: 440px;
+      margin: 0 auto;
+      padding: 40px 50px 20px 70px;
+      box-sizing: border-box;
+      position: relative;
+    }
+    .line-chart-container svg {
+      width: 100%;
+      height: 340px;
+      overflow: visible;
+    }
+
+    /* Slide 6 – Activity */
+    .slide-6 {
+      background-color: #ffffff;
+    }
+    .slide-6 .header {
+      display: flex;
+      justify-content: space-between;
+      padding: 80px 80px 20px 80px;
+      height: 200px;
+      box-sizing: border-box;
+    }
+    .slide-6 .header-left {
+      flex: 1;
+      font-size: 56px;
+      font-weight: 700;
+      color: #000000;
+    }
+    .slide-6 .header-right {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding-left: 40px;
+      font-size: 22px;
+      line-height: 1.4;
+      color: #7a7a7a;
+    }
+    .activity-grid {
+      background-color: #d0cdc4;
+      width: 100%;
+      height: calc(768px - 200px);
+      padding: 60px 80px;
+      box-sizing: border-box;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      grid-gap: 40px;
+    }
+    .activity-cell {
+      background-color: #f2f2ef;
+      border: 2px solid #dcd8d0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: #3a3a3a;
+      text-align: center;
+      line-height: 1.3;
+      padding: 10px;
+    }
+
+    /* Slide 7 – Voting results */
+    .slide-7 {
+      background-color: #ffffff;
+    }
+    .slide-7 .header {
+      display: flex;
+      justify-content: space-between;
+      padding: 80px 80px 20px 80px;
+      height: 200px;
+      box-sizing: border-box;
+    }
+    .slide-7 .header-left {
+      flex: 1;
+      font-size: 56px;
+      font-weight: 700;
+      color: #000000;
+    }
+    .slide-7 .header-right {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding-left: 40px;
+      font-size: 22px;
+      line-height: 1.4;
+      color: #7a7a7a;
+    }
+    .slide-7 .header-right .highlight {
+      color: #e88077;
+      font-weight: 600;
+      text-decoration: underline;
+    }
+    .results-grid {
+      width: 100%;
+      height: calc(768px - 200px);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      box-sizing: border-box;
+    }
+    .results-cell {
+      padding: 40px 40px 20px 40px;
+      box-sizing: border-box;
+      position: relative;
+    }
+    .results-cell:nth-child(1) { background-color: #c9d8e0; }
+    .results-cell:nth-child(2) { background-color: #e6efda; }
+    .results-cell:nth-child(3) { background-color: #f2d5c6; }
+    .results-cell:nth-child(4) { background-color: #d6d3cf; }
+    .results-cell .idea-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: #000000;
+    }
+    .results-cell .dots {
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 440px;
+      margin-bottom: 40px;
+    }
+    .results-cell .dot {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      margin: 4px;
+      border: 2px solid #000000;
+    }
+    .results-cell .dot.filled {
+      background-color: #000000;
+    }
+    .results-cell .votes {
+      position: absolute;
+      bottom: 20px;
+      right: 30px;
+      font-size: 18px;
+      color: #5e5e5e;
+    }
+
+    /* Slide 8 – Our clients */
+    .slide-8 {
+      background-color: #ffffff;
+    }
+    .slide-8 .header {
+      display: flex;
+      justify-content: space-between;
+      padding: 80px 80px 20px 80px;
+      height: 200px;
+      box-sizing: border-box;
+    }
+    .slide-8 .header-left {
+      flex: 1;
+      font-size: 56px;
+      font-weight: 700;
+      color: #000000;
+    }
+    .slide-8 .header-right {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding-left: 40px;
+      font-size: 22px;
+      line-height: 1.4;
+      color: #7a7a7a;
+    }
+    .client-grid {
+      width: calc(100% - 160px);
+      height: calc(768px - 200px);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      grid-gap: 40px;
+      padding: 40px;
+      box-sizing: border-box;
+    }
+    .client-cell {
+      background-color: #eff5f7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .logo-box {
+      width: 120px;
+      height: 120px;
+      background-color: #000000;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    /* Slide 9 – Who we are */
+    .slide-9 {
+      background-color: #c8d7df;
+      color: #000000;
+    }
+    .slide-9 .header {
+      padding: 80px 80px 20px 80px;
+      box-sizing: border-box;
+      height: 200px;
+    }
+    .slide-9 .header h2 {
+      font-size: 56px;
+      font-weight: 700;
+      color: #000000;
+    }
+    .slide-9 .content-row {
+      display: flex;
+      padding: 0 80px;
+      box-sizing: border-box;
+      height: calc(768px - 200px);
+    }
+    .slide-9 .pills {
+      width: 40%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      position: relative;
+    }
+    .slide-9 .pill {
+      background-color: #000000;
+      color: #ffffff;
+      padding: 14px 30px;
+      border-radius: 40px;
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      width: 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .pill:nth-child(1) { transform: rotate(-10deg); }
+    .pill:nth-child(2) { transform: rotate(-5deg); }
+    .pill:nth-child(3) { transform: rotate(-12deg); }
+    .pill:nth-child(4) { transform: rotate(-7deg); }
+    .pill:nth-child(5) { transform: rotate(-9deg); }
+    .slide-9 .text {
+      width: 60%;
+      padding-left: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-size: 22px;
+      line-height: 1.6;
+      color: #0a0a0a;
+    }
+
+    /* Slide 10 – Our process */
+    .slide-10 {
+      background-color: #ffffff;
+    }
+    .slide-10 .header {
+      display: flex;
+      justify-content: space-between;
+      padding: 80px 80px 20px 80px;
+      height: 200px;
+      box-sizing: border-box;
+    }
+    .slide-10 .header-left {
+      flex: 1;
+      font-size: 56px;
+      font-weight: 700;
+      color: #000000;
+    }
+    .slide-10 .header-right {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding-left: 40px;
+      font-size: 22px;
+      line-height: 1.4;
+      color: #7a7a7a;
+    }
+    .process-grid {
+      width: 100%;
+      height: calc(768px - 200px);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      box-sizing: border-box;
+    }
+    .process-step {
+      background-color: #eef5e8;
+      padding: 40px;
+      box-sizing: border-box;
+      border-right: 2px solid #d9e4d0;
+    }
+    .process-step:last-child {
+      border-right: none;
+    }
+    .process-step .circle {
+      width: 48px;
+      height: 48px;
+      background-color: #000000;
+      color: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    .process-step .step-title {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+    .process-step .step-subtitle {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .process-step .step-desc {
+      font-size: 18px;
+      line-height: 1.5;
+      color: #3a3a3a;
+    }
+  </style>
+</head>
+<body>
+  <!-- Slide 1: Four awesome points -->
+  <div class="slide slide-1">
+    <div class="header">
+      <div class="header-left">Four awesome points</div>
+      <div class="header-right">This can be an intro text to explain the theme of the four blocks</div>
+    </div>
+    <div class="grid">
+      <div class="cell">
+        <h3>This is sub one</h3>
+        <p>June is meeting some friends with her work mate on thursday night and is looking for somewhere to go to drink.</p>
+      </div>
+      <div class="cell">
+        <h3>This is sub two</h3>
+        <p>June is meeting some friends with her work mate on thursday night and is looking for somewhere to go to drink.</p>
+      </div>
+      <div class="cell">
+        <h3>This is sub three</h3>
+        <p>June is meeting some friends with her work mate on thursday night and is looking for somewhere to go to drink.</p>
+      </div>
+      <div class="cell">
+        <h3>This is sub four</h3>
+        <p>June is meeting some friends with her work mate on thursday night and is looking for somewhere to go to drink.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 2: Product roadmap -->
+  <div class="slide slide-2">
+    <div class="header">
+      <div class="header-left">Product roadmap</div>
+      <div class="header-right">Visual roadmap for strategic and long‑range planning at a super high‑level</div>
+    </div>
+    <div class="timeline">
+      <!-- Month names row -->
+      <div class="month">JAN</div>
+      <div class="month">FEB</div>
+      <div class="month">MAR</div>
+      <div class="month">APR</div>
+      <div class="month">MAY</div>
+      <div class="month">JUN</div>
+      <div class="month">JUL</div>
+      <div class="month">AUG</div>
+      <div class="month">SEP</div>
+      <div class="month">OCT</div>
+      <div class="month">NOV</div>
+      <div class="month">DEC</div>
+      <!-- Placeholder for second row backgrounds -->
+      <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+      <!-- Bars and events -->
+      <div class="timeline-bar bar1">Onsite Research @ HQ – NYC</div>
+      <div class="timeline-bar bar2">Remote Interviews & A/B testing</div>
+      <div class="timeline-bar bar3">Build React Prototype</div>
+      <div class="timeline-event">Event Horizon</div>
+      <div class="timeline-line"></div>
+      <div class="timeline-blocker">Blocker</div>
+    </div>
+  </div>
+
+  <!-- Slide 3: Bar chart slide -->
+  <div class="slide slide-3">
+    <div class="content-row">
+      <div class="left-col">
+        <h2>This will be the headline</h2>
+        <p>Create a long-term strategy by building <strong>real</strong> foundational UX workflows, which in time will be baked into all projects.</p>
+        <p>Our direct collaboration with your designers, engineers, project managers and account managers will lead to a deeper human-first approach to all product work leading to stronger client relationships, happier teams and “better” product.</p>
+      </div>
+      <div class="right-col">
+        <div class="bar-chart-container">
+          <svg viewBox="0 0 600 320" xmlns="http://www.w3.org/2000/svg">
+            <!-- horizontal grid lines and y-axis labels -->
+            <g font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14" fill="#555555">
+              <line x1="60" y1="40" x2="580" y2="40" stroke="#d6d6d6" stroke-width="1" />
+              <text x="50" y="44" text-anchor="end">20</text>
+              <line x1="60" y1="90" x2="580" y2="90" stroke="#d6d6d6" stroke-width="1" />
+              <text x="50" y="94" text-anchor="end">15</text>
+              <line x1="60" y1="140" x2="580" y2="140" stroke="#d6d6d6" stroke-width="1" />
+              <text x="50" y="144" text-anchor="end">10</text>
+              <line x1="60" y1="190" x2="580" y2="190" stroke="#d6d6d6" stroke-width="1" />
+              <text x="50" y="194" text-anchor="end">5</text>
+              <line x1="60" y1="240" x2="580" y2="240" stroke="#d6d6d6" stroke-width="1" />
+              <text x="50" y="244" text-anchor="end">0</text>
+            </g>
+            <!-- axes -->
+            <line x1="60" y1="40" x2="60" y2="260" stroke="#000000" stroke-width="2" />
+            <line x1="60" y1="260" x2="580" y2="260" stroke="#000000" stroke-width="2" />
+            <!-- bars with proper heights calculated from values (value * 12) and y positions -->
+            <!-- We calculate y as baseline (260) minus bar height and specify positive height values -->
+            <!-- Chocolate Bars: value = 12, height = 144 -->
+            <rect x="120" y="116" width="60" height="144" fill="#000000" />
+            <!-- Granola Bars: value = 8, height = 96 -->
+            <rect x="240" y="164" width="60" height="96" fill="#333333" />
+            <!-- Ice Cream Bars: value = 3, height = 36 -->
+            <rect x="360" y="224" width="60" height="36" fill="#666666" />
+            <!-- Crowbars: value = 17, height = 204 -->
+            <rect x="480" y="56" width="60" height="204" fill="#999999" />
+            <!-- values above bars -->
+            <text x="150" y="112" fill="#000000" font-size="20" font-weight="600" text-anchor="middle">12</text>
+            <text x="270" y="162" fill="#000000" font-size="20" font-weight="600" text-anchor="middle">8</text>
+            <text x="390" y="232" fill="#000000" font-size="20" font-weight="600" text-anchor="middle">3</text>
+            <text x="510" y="52" fill="#000000" font-size="20" font-weight="600" text-anchor="middle">17</text>
+            <!-- x-axis categories with multi-line labels using tspans for proper line breaks -->
+            <text fill="#000000" font-size="16" text-anchor="middle">
+              <tspan x="150" y="295">Chocolate</tspan>
+              <tspan x="150" y="313">Bars</tspan>
+            </text>
+            <text fill="#000000" font-size="16" text-anchor="middle">
+              <tspan x="270" y="295">Granola</tspan>
+              <tspan x="270" y="313">Bars</tspan>
+            </text>
+            <text fill="#000000" font-size="16" text-anchor="middle">
+              <tspan x="390" y="295">Ice Cream</tspan>
+              <tspan x="390" y="313">Bars</tspan>
+            </text>
+            <text fill="#000000" font-size="16" text-anchor="middle">
+              <tspan x="510" y="304">Crowbars</tspan>
+            </text>
+          </svg>
+          <div class="bar-chart-caption">This can be an intro text to explain the purpose of this slide</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 4: Table slide -->
+  <div class="slide slide-4">
+    <div class="content-row">
+      <div class="left-col">
+        <h2>This will be the headline</h2>
+        <p>Tofu prism gluten-free, sustainable YOLO chambray dreamcatcher pug taxidermy authentic. Forage roof party post-ironic poke tote bag helvetica typewriter squid gochujang prism ethical asymmetrical.</p>
+        <p>Wolf brooklyn intelligentsia, snackwave air plant YOLO four loko <u>four dollar</u> toast. Occupy retro mustache single-origin coffee vape coloring book shabby chic tofu listicle gastropub +1 paleo cliche prism williamsburg.</p>
+      </div>
+      <div class="right-col">
+        <div class="table-container">
+          <table class="custom">
+            <thead>
+              <tr>
+                <th>Case A</th>
+                <th>Case B</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td></td><td></td></tr>
+              <tr><td></td><td></td></tr>
+              <tr><td></td><td></td></tr>
+              <tr><td></td><td></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 5: Line chart slide -->
+  <div class="slide slide-5">
+    <div class="header">
+      <div class="header-left">This is a line chart</div>
+      <div class="header-right">Write an explanation about your line chart so your viewers can quickly understand the data.</div>
+    </div>
+    <div class="line-chart-container">
+      <svg viewBox="0 0 600 340" xmlns="http://www.w3.org/2000/svg">
+        <!-- horizontal grid lines -->
+        <line x1="0" y1="30" x2="600" y2="30" stroke="#d6d6d6" stroke-width="1" />
+        <line x1="0" y1="80" x2="600" y2="80" stroke="#d6d6d6" stroke-width="1" />
+        <line x1="0" y1="130" x2="600" y2="130" stroke="#d6d6d6" stroke-width="1" />
+        <line x1="0" y1="180" x2="600" y2="180" stroke="#d6d6d6" stroke-width="1" />
+        <line x1="0" y1="230" x2="600" y2="230" stroke="#d6d6d6" stroke-width="1" />
+        <line x1="0" y1="280" x2="600" y2="280" stroke="#d6d6d6" stroke-width="1" />
+        <!-- axes -->
+        <line x1="50" y1="0" x2="50" y2="300" stroke="#000000" stroke-width="2" />
+        <line x1="50" y1="300" x2="600" y2="300" stroke="#000000" stroke-width="2" />
+        <!-- line path (points: 10,7,2,1) scaled to max 12) -->
+        <polyline points="100,70 250,116 400,233 550,253" fill="none" stroke="#000000" stroke-width="3" />
+        <!-- points -->
+        <circle cx="100" cy="70" r="5" fill="#000000" />
+        <circle cx="250" cy="116" r="5" fill="#000000" />
+        <circle cx="400" cy="233" r="5" fill="#000000" />
+        <circle cx="550" cy="253" r="5" fill="#000000" />
+        <!-- labels above points -->
+        <text x="100" y="60" fill="#000000" font-size="20" font-weight="600" text-anchor="middle">10</text>
+        <text x="250" y="106" fill="#000000" font-size="20" font-weight="600" text-anchor="middle">7</text>
+        <text x="400" y="223" fill="#000000" font-size="20" font-weight="600" text-anchor="middle">2</text>
+        <text x="550" y="243" fill="#000000" font-size="20" font-weight="600" text-anchor="middle">1</text>
+        <!-- x-axis categories -->
+        <text x="100" y="320" fill="#000000" font-size="18" text-anchor="middle">Airline</text>
+        <text x="250" y="320" fill="#000000" font-size="18" text-anchor="middle">Hemline</text>
+        <text x="400" y="320" fill="#000000" font-size="18" text-anchor="middle">Beeline</text>
+        <text x="550" y="320" fill="#000000" font-size="18" text-anchor="middle">Offline</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Slide 6: Activity slide -->
+  <div class="slide slide-6">
+    <div class="header">
+      <div class="header-left">Activity</div>
+      <div class="header-right">Each participant can duplicate this slide, for example, and spend 5 minutes jotting ideas in their assigned slide.</div>
+    </div>
+    <div class="activity-grid">
+      <!-- 10 cells -->
+      <div class="activity-cell">One idea per sticky</div>
+      <div class="activity-cell">One idea per sticky</div>
+      <div class="activity-cell">One idea per sticky</div>
+      <div class="activity-cell">One idea per sticky</div>
+      <div class="activity-cell">One idea per sticky</div>
+      <div class="activity-cell">One idea per sticky</div>
+      <div class="activity-cell">One idea per sticky</div>
+      <div class="activity-cell">One idea per sticky</div>
+      <div class="activity-cell">One idea per sticky</div>
+      <div class="activity-cell">One idea per sticky</div>
+    </div>
+  </div>
+
+  <!-- Slide 7: Voting results slide -->
+  <div class="slide slide-7">
+    <div class="header">
+      <div class="header-left">Voting results</div>
+      <div class="header-right"><span class="highlight">Dot‑voting</span> participants vote on their chosen options using a limited number of votes.</div>
+    </div>
+    <div class="results-grid">
+      <!-- Idea A -->
+      <div class="results-cell">
+        <div class="idea-title">Idea A</div>
+        <div class="dots">
+          <!-- 16 dots: 10 filled, 6 empty -->
+          <span class="dot filled"></span>
+          <span class="dot filled"></span>
+          <span class="dot filled"></span>
+          <span class="dot filled"></span>
+          <span class="dot filled"></span>
+          <span class="dot filled"></span>
+          <span class="dot filled"></span>
+          <span class="dot filled"></span>
+          <span class="dot filled"></span>
+          <span class="dot filled"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+        <div class="votes">42% · 16 Votes</div>
+      </div>
+      <!-- Idea C -->
+      <div class="results-cell">
+        <div class="idea-title">Idea C</div>
+        <div class="dots">
+          <!-- 16 dots: 8 filled, 8 empty -->
+          <span class="dot filled"></span>
+          <span class="dot filled"></span>
+          <span class="dot filled"></span>
+          <span class="dot filled"></span>
+          <span class="dot filled"></span>
+          <span class="dot filled"></span>
+          <span class="dot filled"></span>
+          <span class="dot filled"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+        <div class="votes">42% · 16 Votes</div>
+      </div>
+      <!-- Idea B -->
+      <div class="results-cell">
+        <div class="idea-title">Idea B</div>
+        <div class="dots">
+          <!-- 16 dots: 6 filled, 10 empty -->
+          <span class="dot filled"></span>
+          <span class="dot filled"></span>
+          <span class="dot filled"></span>
+          <span class="dot filled"></span>
+          <span class="dot filled"></span>
+          <span class="dot filled"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+        <div class="votes">42% · 16 Votes</div>
+      </div>
+      <!-- Idea D -->
+      <div class="results-cell">
+        <div class="idea-title">Idea D</div>
+        <div class="dots">
+          <!-- 16 dots: 9 filled, 7 empty -->
+          <span class="dot filled"></span>
+          <span class="dot filled"></span>
+          <span class="dot filled"></span>
+          <span class="dot filled"></span>
+          <span class="dot filled"></span>
+          <span class="dot filled"></span>
+          <span class="dot filled"></span>
+          <span class="dot filled"></span>
+          <span class="dot filled"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+        <div class="votes">42% · 16 Votes</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 8: Our clients -->
+  <div class="slide slide-8">
+    <div class="header">
+      <div class="header-left">Our clients</div>
+      <div class="header-right">This can be an intro text to explain the purpose of this slide</div>
+    </div>
+    <div class="client-grid">
+      <!-- nine logo squares -->
+      <div class="client-cell"><div class="logo-box">LOGO<br/>HERE</div></div>
+      <div class="client-cell"><div class="logo-box">LOGO<br/>HERE</div></div>
+      <div class="client-cell"><div class="logo-box">LOGO<br/>HERE</div></div>
+      <div class="client-cell"><div class="logo-box">LOGO<br/>HERE</div></div>
+      <div class="client-cell"><div class="logo-box">LOGO<br/>HERE</div></div>
+      <div class="client-cell"><div class="logo-box">LOGO<br/>HERE</div></div>
+      <div class="client-cell"><div class="logo-box">LOGO<br/>HERE</div></div>
+      <div class="client-cell"><div class="logo-box">LOGO<br/>HERE</div></div>
+      <div class="client-cell"><div class="logo-box">LOGO<br/>HERE</div></div>
+    </div>
+  </div>
+
+  <!-- Slide 9: Who we are -->
+  <div class="slide slide-9">
+    <div class="header">
+      <h2>Who we are</h2>
+    </div>
+    <div class="content-row">
+      <div class="pills">
+        <div class="pill">Strategy</div>
+        <div class="pill">UX</div>
+        <div class="pill">Accessibility</div>
+        <div class="pill">User Testing</div>
+        <div class="pill">Product Design</div>
+      </div>
+      <div class="text">
+        <p>We’re a global team of researchers, strategists, designers, developers and all‑round problem solvers who have made it our life’s work to build simple, useful and expertly‑crafted systems and experiences. Usually they’re digital, but not always.</p>
+        <br/>
+        <p>We partner with forward‑thinking businesses who understand the benefits of ethical human centred design to solve authentic problems.</p>
+        <br/>
+        <p>Most often our work culminates as an app, website, or piece of software. But, we also take care of all the human things that happen alongside screen‑based journeys.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 10: Our process -->
+  <div class="slide slide-10">
+    <div class="header">
+      <div class="header-left">Our process</div>
+      <div class="header-right">This can be an intro text to explain the purpose of this slide</div>
+    </div>
+    <div class="process-grid">
+      <!-- Step 1 -->
+      <div class="process-step">
+        <div class="circle">01</div>
+        <div class="step-title">Hunting</div>
+        <div class="step-subtitle">Searching for Pain</div>
+        <div class="step-desc">Stumptown organic tousled, live‑edge vegan adaptogen cliche farm‑to‑table bushwick glossier pinterest.</div>
+      </div>
+      <!-- Step 2 -->
+      <div class="process-step">
+        <div class="circle">02</div>
+        <div class="step-title">Experience</div>
+        <div class="step-subtitle">Living that pain</div>
+        <div class="step-desc">Selvage man braid humblebrag pour‑over listicle taxidermy jianbing master cleanse gentrify shoreditch. Typewriter mumbleco.</div>
+      </div>
+      <!-- Step 3 -->
+      <div class="process-step">
+        <div class="circle">03</div>
+        <div class="step-title">Understand</div>
+        <div class="step-subtitle">Connecting the dots</div>
+        <div class="step-desc">Poke keffiyeh XOXO post‑ironic pour‑over williamsburg intelligentsia raw denim roof party austin.</div>
+      </div>
+      <!-- Step 4 -->
+      <div class="process-step">
+        <div class="circle">04</div>
+        <div class="step-title">Explore</div>
+        <div class="step-subtitle">This is us today!</div>
+        <div class="step-desc">Stumptown organic tousled, live‑edge vegan adaptogen cliche farm‑to‑table bushwick glossier pinterest.</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

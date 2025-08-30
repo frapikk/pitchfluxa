@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
+    <style>
+        :root{
+            --ink:#111111;
+            --muted:#6b6b6b;
+            --grid:#e8e8e8;
+            --sand:#F5E6DB;
+
+            /* dimensioni slide 16:9 in px (Full HD) */
+            --slide-w:1920px;
+            --slide-h:1080px;
+
+            /* scala tipografica per 1080p */
+            --fs-title:64px;
+            --fs-copy:32px;
+            --fs-list:24px;
+            --fs-kpi-title:20px;
+            --fs-kpi-desc:16px;
+
+            --space-xl:72px;
+            --space-lg:48px;
+            --space-md:24px;
+            --space-sm:16px;
+        }
+
+        html,body{height:100%}
+        body{
+            margin:0;
+            background:#ffffff;
+            color:var(--ink);
+            font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Helvetica Neue", Helvetica, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji", "Segoe UI Symbol";
+        }
+
+        /* SLIDE CANVAS */
+        .slide{
+            width:var(--slide-w);
+            height:var(--slide-h);
+            margin:0 auto;
+            display:grid;
+            grid-template-columns: 1.05fr 0.95fr; /* leggero favore al testo */
+            page-break-after: always;
+            overflow: hidden;
+            border: 1px solid transparent; /* evita artefatti di stampa */
+        }
+
+        /* Colonna sinistra (testo) */
+        .left{
+            padding:var(--space-xl) var(--space-xl) var(--space-xl) var(--space-lg);
+            display:flex;
+            flex-direction:column;
+            gap:var(--space-md);
+        }
+        .title{
+            font-size:var(--fs-title);
+            line-height:1.12;
+            font-weight:700;
+            margin:0;
+            letter-spacing:-0.01em;
+        }
+        .title .marker{
+            font-weight:700;
+            margin-right:12px;
+        }
+        .copy{
+            font-size:var(--fs-copy);
+            line-height:1.55;
+            max-width: 900px;
+        }
+        .copy strong{font-weight:700}
+
+        .hr{height:2px;background:#eee;margin-top:6px;width:96px}
+
+        /* Lista problemi */
+        .problem-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .problem-item {
+            margin-bottom: var(--space-sm);
+            font-size: var(--fs-list);
+            line-height: 1.5;
+        }
+
+        /* KPI cards */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: var(--space-sm);
+            max-width: 980px;
+        }
+        .kpi-card {
+            background: rgba(0, 0, 0, 0.03);
+            border: 1px solid var(--grid);
+            border-radius: 12px;
+            padding: 16px;
+        }
+        .kpi-title {
+            font-weight: 700;
+            font-size: var(--fs-kpi-title);
+            margin-bottom: 6px;
+            color: var(--ink);
+        }
+        .kpi-desc {
+            font-size: var(--fs-kpi-desc);
+            color: var(--muted);
+            line-height: 1.35;
+        }
+
+        /* Colonna destra (grafico) */
+        .right{
+            background:var(--sand);
+            position:relative;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:center;
+            padding:40px 28px 96px; /* spazio maggiore per didascalia */
+            gap: 24px;
+        }
+        .chart-wrap{
+            width:88%;
+            max-width:780px;
+            height:380px;  /* aumentato per 1080p */
+        }
+        .caption{
+            position:absolute;
+            left:40px;
+            right:40px;
+            bottom:28px;
+            font-size:14px;
+            color:var(--muted);
+        }
+
+        /* Immagini opzionali */
+        .image-wrap {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .solar-img {
+            max-width: 100%;
+            max-height: 160px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        /* PRINT: nessun margine, dimensione pagina = slide */
+        @page {
+            size: var(--slide-w) var(--slide-h);
+            margin: 0;
+        }
+        @media print {
+            html, body {
+                width: var(--slide-w);
+                height: var(--slide-h);
+            }
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+
+        /* Responsività minimale per anteprima su schermi piccoli */
+        @media (max-width: 1200px) {
+            .slide { transform: scale(0.6); transform-origin: top left; }
+        }
+        @media (max-width: 900px) {
+            .slide { transform: scale(0.5); transform-origin: top left; }
+        }
+    </style>
+</head>
+<body>
+<div class="slide">
+    <!-- SINISTRA -->
+    <section class="left">
+        <h1 class="title"><span class="marker"></span>Il Problema</h1>
+        <div class="hr"></div>
+        <p class="copy">
+            Il <b>surplus energetico solare</b> in Italia vale oltre 3 TWh/anno (circa 0,6 miliardi di euro all’anno) ma viene pagato meno della metà del suo valore ai produttori, mentre PMI comprano la stessa energia a prezzo pieno e volatile.
+        </p>
+        <ul class="problem-list">
+            <li class="problem-item">
+                <strong>Produttori retail / piccole centrali:</strong> surplus FV ceduto al GSE (RID/SSP ~0,05–0,08 €/kWh); nessun accesso ai mercati all'ingrosso/dispacciamento.
+            </li>
+            <li class="problem-item">
+                <strong>PMI e CPO:</strong> pagano 0,20–0,25 €/kWh; alta volatilità PUN e oneri di potenza; poche opzioni di hedging "a misura di PMI".
+            </li>
+            <li class="problem-item">
+                <strong>Inefficienza sistemica:</strong> mismatch temporale (FV di giorno vs consumi serali); assenza di mercato secondario per scambiare valore nel tempo.
+            </li>
+            <li class="problem-item">
+                <strong>Conseguenza:</strong> perdita di valore del 50–70% lungo la filiera, freno alla diffusione delle rinnovabili distribuite.
+            </li>
+        </ul>
+
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-title">Gap di valore</div>
+                <div class="kpi-desc">Prosumer: ~0,06 €/kWh vs PMI/CPO: ~0,22 €/kWh</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-title">Volatilità</div>
+                <div class="kpi-desc">PUN 2018–2023: da 38 a 303 €/MWh (picchi storici)</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-title">Mismatch</div>
+                <div class="kpi-desc">PV a mezzogiorno; picchi di consumo pomeridiano/serale</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DESTRA -->
+    <section class="right">
+        <div class="chart-wrap">
+            <canvas id="priceGapChart"></canvas>
+        </div>
+        <div class="chart-wrap">
+            <canvas id="mismatchChart"></canvas>
+        </div>
+        <div class="caption">Fonte: Analisi dati GSE e ARERA 2024</div>
+    </section>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Price Gap Chart
+        const priceGapCtx = document.getElementById("priceGapChart").getContext("2d");
+        new Chart(priceGapCtx, {
+            type: "bar",
+            data: {
+                labels: ["Prosumer (RID/SSP)", "PMI/CPO (Retail)"],
+                datasets: [
+                    {
+                        label: "Prezzo energia (€/kWh)",
+                        data: [0.06, 0.22],
+                        backgroundColor: ["#000000", "#6B6B6B"],
+                        borderColor: ["#000000", "#6B6B6B"],
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    title: {
+                        display: true,
+                        text: "Gap di prezzo energia: Prosumer vs PMI/CPO",
+                        color: "#111111",
+                        font: { size: 22, weight: "bold" }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { color: "#e8e8e8" },
+                        ticks: { color: "#111111", font: { size: 14 } }
+                    },
+                    y: {
+                        grid: { color: "#e8e8e8" },
+                        ticks: {
+                            color: "#111111",
+                            callback: function(value) { return value.toFixed(2) + " €/kWh"; }
+                        },
+                        title: { display: true, text: "Prezzo (€/kWh)", color: "#111111" }
+                    }
+                }
+            }
+        });
+
+        // Mismatch Chart
+        const mismatchCtx = document.getElementById("mismatchChart").getContext("2d");
+        new Chart(mismatchCtx, {
+            type: "line",
+            data: {
+                labels: ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00", "24:00"],
+                datasets: [
+                    {
+                        label: "Produzione FV",
+                        data: [0, 0, 0.2, 0.8, 0.4, 0.1, 0],
+                        borderColor: "#000000",
+                        backgroundColor: "rgba(0, 0, 0, 0.08)",
+                        fill: true,
+                        tension: 0.4
+                    },
+                    {
+                        label: "Consumo Tipico",
+                        data: [0.2, 0.1, 0.3, 0.4, 0.6, 0.8, 0.3],
+                        borderColor: "#6B6B6B",
+                        backgroundColor: "rgba(107, 107, 107, 0.08)",
+                        fill: true,
+                        tension: 0.4
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: "top",
+                        labels: { color: "#111111", font: { size: 14 } }
+                    },
+                    title: {
+                        display: true,
+                        text: "Mismatch temporale: Produzione FV vs Consumo",
+                        color: "#111111",
+                        font: { size: 22, weight: "bold" }
+                    }
+                },
+                scales: {
+                    x: { grid: { color: "#e8e8e8" }, ticks: { color: "#111111" } },
+                    y: {
+                        grid: { color: "#e8e8e8" },
+                        ticks: {
+                            color: "#111111",
+                            callback: function(value) { return value.toFixed(1) + " kWh"; }
+                        },
+                        title: { display: true, text: "Energia (kWh)", color: "#111111" }
+                    }
+                }
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
