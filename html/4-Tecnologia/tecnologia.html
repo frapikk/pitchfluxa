@@ -3,136 +3,186 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tecnologia — Fluxa</title>
+    <title>Tecnologia — Fluxa (rev)</title>
     <style>
         :root{
-            /* Palette from provided reference (Activity board look) */
-            --bg:#ffffff;
-            --ink:#111111;
-            --board:#d9d6cf;
-            --card:#f3f3f1;
-            --muted:#5b5b5b;
-            --line:#c9c6be;
-            --accent:#111111;
+            --bg:#ffffff;--ink:#111111;--board:#d9d6cf;--card:#f3f3f1;--muted:#5b5b5b;--line:#c9c6be;--accent:#111111
         }
-        html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";}
-        .slide{max-width:1366px;min-height:768px;margin:0 auto;padding:48px 56px 60px;box-sizing:border-box;}
-        h1{font-size:64px;line-height:1.05;margin:0 0 12px -2px;letter-spacing:-.5px;}
-        .sub{font-size:20px;color:var(--ink);margin:0 0 24px;max-width:1000px;}
-        .grid{display:grid;grid-template-columns:1.15fr 1fr;gap:22px;}
-        @media (max-width: 1100px){.grid{grid-template-columns:1fr;}}
-        /* Left column panels */
-        .panel{background:var(--board);border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px;}
-        .panel h2{font-size:24px;margin:0 0 10px;font-weight:800;}
-        .panel h3{font-size:18px;margin:12px 0 6px;font-weight:800;}
-        .panel p,.panel li{font-size:16px;color:#222;line-height:1.45;}
-        .panel ul{margin:0;padding-left:20px;}
+        html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji"}
+        .slide{max-width:1366px;min-height:768px;margin:0 auto;padding:48px 56px 60px;box-sizing:border-box}
+        h1{font-size:64px;line-height:1.05;margin:0 0 12px -2px;letter-spacing:-.5px}
+        .sub{font-size:20px;color:var(--ink);margin:0 0 24px;max-width:1000px}
+        .grid{display:grid;grid-template-columns:1.15fr 1fr;gap:22px}
+        @media (max-width:1100px){.grid{grid-template-columns:1fr}}
+        .panel{background:var(--board);border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px}
+        .panel h2{font-size:24px;margin:0 0 10px;font-weight:800}
+        .panel h3{font-size:18px;margin:12px 0 6px;font-weight:800}
+        .panel p,.panel li{font-size:16px;color:#222;line-height:1.45}
+        .panel ul{margin:0;padding-left:20px}
         .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
         .chip{background:var(--ink);color:#fff;border-radius:999px;padding:7px 12px;font-size:13px;font-weight:700;letter-spacing:.2px}
-        /* Right column diagram board */
-        .board{background:var(--board);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px;}
-        .board h2{font-size:20px;margin:2px 2px 8px 2px;font-weight:800;}
+        .board{background:var(--board);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px}
+        .board h2{font-size:20px;margin:2px 2px 8px 2px;font-weight:800}
         .svg-wrap{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px}
         svg{width:100%;height:auto;display:block}
-        /* Small foot */
         .foot{color:var(--muted);font-size:12px;margin-top:8px}
-        /* Clean list bullets */
         li+li{margin-top:6px}
     </style>
 </head>
 <body>
 <section class="slide">
     <h1>Tecnologia</h1>
-    <p class="sub"><strong>Dal kWh misurato al token scambiabile, fino al settlement in bolletta.</strong> Architettura a 3 layer: <em>Data &amp; Proof</em> → <em>Market &amp; Pricing</em> → <em>Flex &amp; Delivery</em>.</p>
+    <p class="sub"><strong>Dal dato misurato al settlement in bolletta, passando per token e mercato.</strong> Stack a 3 livelli con servizi trasversali: <em>Data &amp; Proof</em> → <em>Market &amp; Pricing</em> → <em>Flex &amp; Delivery</em>. Trasversali: <em>IAM &amp; KMS</em>, <em>Observability</em>, <em>Compliance</em>.</p>
 
     <div class="grid">
-        <!-- LEFT: content summary (trimmed) -->
+        <!-- LEFT: content summary -->
         <div class="panel">
-            <h2>Architettura a 3 layer</h2>
+            <h2>Architettura a 3 livelli</h2>
 
             <h3>Data &amp; Proof</h3>
             <ul>
-                <li><strong>Acquisizione misure POD</strong> (smart meter 2G / DSO / SII / GSE) con firma &amp; hash.</li>
-                <li><strong>Energy oracle</strong>: coerenza zone/fasce, anti‑double counting, finestra di <em>reconciliation</em> t+2.</li>
-                <li><strong>Tokenizzazione</strong>: token fungibili (ERC‑20 esteso) con attributi energetici e scadenza.</li>
+                <li><strong>Ingestion misure POD</strong> (SM 2G / DSO / SII / GSE) con <em>ETL</em>, convalida sintattica e <strong>time‑stamping</strong> RFC‑3161.</li>
+                <li><strong>Verifiche di coerenza</strong> su zona/fascia, anti‑double counting, <em>reconciliation</em> operativa t+2 e <em>late data handling</em>.</li>
+                <li><strong>Attestazione crittografica</strong>: firma server‑side in HSM, <em>Merkle commitment</em> on‑chain per integrità e data lineage.</li>
+                <li><strong>Tokenizzazione</strong>: ERC‑20/1155 esteso con attributi energetici (POD, zona, fascia, periodo, scadenza) e <em>non‑transferable flag</em> opzionale per redemption puntuale.</li>
             </ul>
 
             <h3>Market &amp; Pricing</h3>
             <ul>
-                <li><strong>Order book / AMM</strong> con bande su PUN/PPA; market maker per liquidità.</li>
-                <li><strong>Clearing &amp; escrow</strong> per ordini aperti; <em>burn</em> su redemption/consumo.</li>
-                <li><strong>Trasparenza</strong>: prezzi e volumi on‑chain.</li>
+                <li><strong>Venue ibrido</strong> order book + AMM con <em>band corridors</em> ancorati a PUN/PPA; <strong>market maker</strong> per profondità e spread target.</li>
+                <li><strong>Clearing</strong> atomico con <em>escrow</em> e <em>settlement</em> T+0/T+1; <strong>eventi on‑chain</strong> per auditabilità; <em>burn</em> alla redemption/consumo.</li>
+                <li><strong>Prezzi &amp; indici</strong>: feed oracolari versionati, VWAP/TWAP, <em>circuit breakers</em> e <em>pre‑trade risk checks</em>.</li>
             </ul>
 
             <h3>Flex &amp; Delivery</h3>
             <ul>
-                <li><strong>API Fornitore (EVE)</strong> per redemption e sconto in bolletta.</li>
-                <li><strong>Controllo risorse</strong>: EMS/BESS (Modbus, OPC‑UA, IEC 61850), CPO (OCPP), ISO 15118, OpenADR.</li>
-                <li><strong>UVAM‑ready</strong> via interfaccia BSP/Terna.</li>
+                <li><strong>API Fornitore (EVE)</strong> per <em>redeem</em> e accredito in bolletta; mapping contrattuale POD↔wallet, <em>proration</em> e storni.</li>
+                <li><strong>Controllo risorse</strong>: EMS/BESS (Modbus, OPC‑UA, IEC 61850), CPO (OCPP), ISO 15118, OpenADR. <em>Device gateway</em> con <strong>digital twin</strong>.</li>
+                <li><strong>UVAM‑ready</strong> via interfaccia BSP/Terna con baseline, misure ex‑post e penalità; logiche <em>opt‑in/opt‑out</em> per aggregato.</li>
+            </ul>
+
+            <h3>Servizi trasversali</h3>
+            <ul>
+                <li><strong>IAM &amp; KMS</strong>: OIDC/OAuth2, ruoli multi‑tenant, chiavi custodite in HSM, rotazione/segreto perimetrale.</li>
+                <li><strong>Observability</strong>: metriche, tracing distribuito, <em>DLQ</em> per eventi, <em>replay</em> idempotente.</li>
+                <li><strong>Compliance &amp; Data governance</strong>: GDPR, conservazione log firmati, politiche di retention e <em>privacy by design</em>.</li>
             </ul>
 
             <div class="chips">
-                <span class="chip">≤ 15 min latenza</span>
-                <span class="chip">Dispute: t+2</span>
+                <span class="chip">Latenza ≤ 15 min</span>
+                <span class="chip">Reconciliation t+2</span>
                 <span class="chip">Uptime 99,9%</span>
+                <span class="chip">Audit on‑chain</span>
             </div>
         </div>
 
-        <!-- RIGHT: static architecture diagram -->
+        <!-- RIGHT: architecture diagram -->
         <div class="board">
             <h2>Schema tecnico sintetico</h2>
             <div class="svg-wrap">
-                <!-- Static SVG (no animations) -->
-                <svg viewBox="0 0 880 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architettura tecnica Fluxa">
+                <svg viewBox="0 0 920 580" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architettura tecnica Fluxa">
                     <defs>
                         <style>
                             .b{fill:#f3f3f1;stroke:#c9c6be;stroke-width:2}
                             .t{font:700 14px ui-sans-serif,system-ui,Segoe UI,Roboto,Arial;fill:#111}
                             .s{font:600 12px ui-sans-serif,system-ui,Segoe UI,Roboto,Arial;fill:#333}
+                            .x{font:600 11px ui-sans-serif,system-ui,Segoe UI,Roboto,Arial;fill:#333}
                             .a{marker-end:url(#arrow)}
                         </style>
                         <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#777"/>
+                            <path d="M0 0 L10 5 L0 10z" fill="#777"/>
                         </marker>
                     </defs>
 
+                    <!-- Cross-cutting services (top ribbon) -->
+                    <rect class="b" x="20" y="12" width="880" height="44" rx="10"/>
+                    <text class="t" x="35" y="38">IAM &amp; KMS</text>
+                    <text class="x" x="130" y="38">OIDC • RBAC • HSM</text>
+                    <text class="t" x="290" y="38">Observability</text>
+                    <text class="x" x="392" y="38">metrics • traces • DLQ</text>
+                    <text class="t" x="560" y="38">Compliance</text>
+                    <text class="x" x="650" y="38">retention • audit log</text>
+
                     <!-- Row 1: Data & Proof -->
-                    <rect class="b" x="20"  y="20" width="170" height="90" rx="10"/><text class="t" x="35" y="45">Smart meter / DSO</text><text class="s" x="35" y="65">POD • curve orarie</text><text class="s" x="35" y="83">firma + hash</text>
-                    <rect class="b" x="220" y="20" width="180" height="90" rx="10"/><text class="t" x="235" y="45">Energy Oracle</text><text class="s" x="235" y="65">coerenza zone/fasce</text><text class="s" x="235" y="83">anti‑double counting</text>
-                    <rect class="b" x="430" y="20" width="170" height="90" rx="10"/><text class="t" x="445" y="45">Tokenizzazione</text><text class="s" x="445" y="65">ERC‑20 esteso</text><text class="s" x="445" y="83">attributi energetici</text>
+                    <rect class="b" x="20"  y="80" width="190" height="100" rx="10"/>
+                    <text class="t" x="35" y="105">Ingestion Misure</text>
+                    <text class="s" x="35" y="125">SM2G • DSO • SII • GSE</text>
+                    <text class="s" x="35" y="143">ETL • QC • timestamp</text>
+
+                    <rect class="b" x="230" y="80" width="210" height="100" rx="10"/>
+                    <text class="t" x="245" y="105">Energy Oracle</text>
+                    <text class="s" x="245" y="125">zone • fasce • anti‑double</text>
+                    <text class="s" x="245" y="143">reconciliation t+2</text>
+
+                    <rect class="b" x="460" y="80" width="200" height="100" rx="10"/>
+                    <text class="t" x="475" y="105">Attestazione &amp; Token</text>
+                    <text class="s" x="475" y="125">firma HSM • Merkle root</text>
+                    <text class="s" x="475" y="143">ERC‑20/1155 esteso</text>
+
+                    <rect class="b" x="680" y="80" width="220" height="100" rx="10"/>
+                    <text class="t" x="695" y="105">Portafogli &amp; Identity</text>
+                    <text class="s" x="695" y="125">wallet custodial/non‑cust.</text>
+                    <text class="s" x="695" y="143">KYC/KYB • mapping POD</text>
 
                     <!-- Row 2: Market & Pricing -->
-                    <rect class="b" x="20"  y="150" width="220" height="90" rx="10"/><text class="t" x="35" y="175">Order book / AMM</text><text class="s" x="35" y="195">bande PUN/PPA • MM</text>
-                    <rect class="b" x="270" y="150" width="200" height="90" rx="10"/><text class="t" x="285" y="175">Clearing &amp; Escrow</text><text class="s" x="285" y="195">settlement trade</text>
+                    <rect class="b" x="20"  y="210" width="240" height="100" rx="10"/>
+                    <text class="t" x="35" y="235">Order Book / AMM</text>
+                    <text class="s" x="35" y="255">band corridors PUN/PPA</text>
+                    <text class="s" x="35" y="273">market making</text>
 
-                    <!-- Row 3: Delivery -->
-                    <rect class="b" x="20"  y="280" width="220" height="90" rx="10"/><text class="t" x="35" y="305">API Fornitore (EVE)</text><text class="s" x="35" y="325">redeem token → sconto</text>
-                    <rect class="b" x="270" y="280" width="200" height="90" rx="10"/><text class="t" x="285" y="305">Fornitore Energia</text><text class="s" x="285" y="325">bolletta/contatore</text>
-                    <rect class="b" x="500" y="280" width="180" height="90" rx="10"/><text class="t" x="515" y="305">Consumatore PMI/CPO</text><text class="s" x="515" y="325">wallet + contratto</text>
+                    <rect class="b" x="280" y="210" width="230" height="100" rx="10"/>
+                    <text class="t" x="295" y="235">Clearing &amp; Escrow</text>
+                    <text class="s" x="295" y="255">settlement T+0/T+1</text>
+                    <text class="s" x="295" y="273">eventi on‑chain</text>
 
-                    <!-- Flex -->
-                    <rect class="b" x="500" y="150" width="180" height="90" rx="10"/><text class="t" x="515" y="175">Flessibilità</text><text class="s" x="515" y="195">EMS/BESS • OCPP • 15118</text>
+                    <rect class="b" x="530" y="210" width="200" height="100" rx="10"/>
+                    <text class="t" x="545" y="235">Pricing &amp; Indici</text>
+                    <text class="s" x="545" y="255">VWAP/TWAP</text>
+                    <text class="s" x="545" y="273">circuit breakers</text>
 
-                    <!-- Prosumer -->
-                    <rect class="b" x="700" y="20"  width="160" height="90" rx="10"/><text class="t" x="715" y="45">Prosumer</text><text class="s" x="715" y="65">wallet + POD</text>
-                    <rect class="b" x="700" y="150" width="160" height="90" rx="10"/><text class="t" x="715" y="175">Mint/Burn</text><text class="s" x="715" y="195">on redemption</text>
+                    <rect class="b" x="750" y="210" width="150" height="100" rx="10"/>
+                    <text class="t" x="765" y="235">Trasparenza</text>
+                    <text class="s" x="765" y="255">prezzi &amp; volumi on‑chain</text>
+
+                    <!-- Row 3: Flex & Delivery -->
+                    <rect class="b" x="20"  y="340" width="240" height="100" rx="10"/>
+                    <text class="t" x="35" y="365">API Fornitore (EVE)</text>
+                    <text class="s" x="35" y="385">redeem → sconto bolletta</text>
+                    <text class="s" x="35" y="403">proration &amp; storni</text>
+
+                    <rect class="b" x="280" y="340" width="210" height="100" rx="10"/>
+                    <text class="t" x="295" y="365">Fornitore Energia</text>
+                    <text class="s" x="295" y="385">fatturazione • misure</text>
+                    <text class="s" x="295" y="403">contratti</text>
+
+                    <rect class="b" x="510" y="340" width="200" height="100" rx="10"/>
+                    <text class="t" x="525" y="365">Risorse &amp; Flessibilità</text>
+                    <text class="s" x="525" y="385">EMS/BESS • OCPP • 15118</text>
+                    <text class="s" x="525" y="403">OpenADR • UVAM‑ready</text>
+
+                    <rect class="b" x="730" y="340" width="170" height="100" rx="10"/>
+                    <text class="t" x="745" y="365">Cliente PMI/CPO</text>
+                    <text class="s" x="745" y="385">wallet • POD</text>
+                    <text class="s" x="745" y="403">contratto/consumo</text>
 
                     <!-- Flows -->
-                    <line x1="190" y1="65"  x2="220" y2="65"  stroke="#777" stroke-width="2" class="a"/>
-                    <line x1="400" y1="65"  x2="430" y2="65"  stroke="#777" stroke-width="2" class="a"/>
-                    <line x1="600" y1="65"  x2="700" y2="65"  stroke="#777" stroke-width="2" class="a"/>
-                    <line x1="785" y1="110" x2="785" y2="150" stroke="#777" stroke-width="2" class="a"/>
-                    <line x1="240" y1="195" x2="270" y2="195" stroke="#777" stroke-width="2" class="a"/>
-                    <line x1="370" y1="240" x2="370" y2="280" stroke="#777" stroke-width="2" class="a"/>
-                    <line x1="220" y1="325" x2="270" y2="325" stroke="#777" stroke-width="2" class="a"/>
-                    <line x1="470" y1="325" x2="500" y2="325" stroke="#777" stroke-width="2" class="a"/>
-                    <line x1="590" y1="240" x2="592" y2="280" stroke="#777" stroke-width="2" class="a"/>
+                    <line x1="210" y1="130" x2="230" y2="130" stroke="#777" stroke-width="2" class="a"/>
+                    <line x1="440" y1="130" x2="460" y2="130" stroke="#777" stroke-width="2" class="a"/>
+                    <line x1="660" y1="130" x2="680" y2="130" stroke="#777" stroke-width="2" class="a"/>
+
+                    <line x1="260" y1="260" x2="280" y2="260" stroke="#777" stroke-width="2" class="a"/>
+                    <line x1="510" y1="260" x2="530" y2="260" stroke="#777" stroke-width="2" class="a"/>
+                    <line x1="730" y1="260" x2="750" y2="260" stroke="#777" stroke-width="2" class="a"/>
+
+                    <line x1="260" y1="390" x2="280" y2="390" stroke="#777" stroke-width="2" class="a"/>
+                    <line x1="490" y1="390" x2="510" y2="390" stroke="#777" stroke-width="2" class="a"/>
+                    <line x1="710" y1="390" x2="730" y2="390" stroke="#777" stroke-width="2" class="a"/>
 
                     <!-- Legend footer -->
-                    <text class="s" x="20" y="395">Standard: Modbus, OPC‑UA, IEC 61850, OCPP, ISO 15118, OpenADR • UVAM‑ready</text>
+                    <text class="s" x="20" y="470">Standard: Modbus, OPC‑UA, IEC 61850, OCPP, ISO 15118, OpenADR • UVAM‑ready • OIDC/OAuth2</text>
                 </svg>
             </div>
-            <div class="foot">Schema statico — nessuna animazione o contenuto mobile. Ridotto ai blocchi principali per massima leggibilità.</div>
+            <div class="foot">Schema statico — blocchi principali e servizi trasversali per massima leggibilità.</div>
         </div>
     </div>
 </section>
